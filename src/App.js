@@ -1,26 +1,74 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from './components/Home'
+import Portfolio from './components/Portfolio'
+import Merchandise from './components/Merchandise'
+import About from './components/About'
+import Contact from './components/Contact'
+import Authorized from './components/Authorized';
+import Unauthorized from './components/Unauthorized';
+import Error404 from "./components/Error404"
+import API from './API'
+import SignIn from './components/SignIn';
+import ImageCollection from './containers/ImageCollection'
 
-function App() {
+
+class App extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      username: null,
+      imageCollection: []
+    }
+  }
+
+  componentDidMount(){
+    if(localStorage.token){
+      API.validate(localStorage.token)
+      .then(json => this.signIn(json.username, json.token))
+    }
+    API.getImages().then((imageCollection) => this.setState({ imageCollection }))
+  }
+
+  signIn = (username, token) =>{
+    this.setState({
+      username
+    })
+    localStorage.token = token
+  }
+
+  signOut = () => {
+    this.setState({
+      username: null
+    })
+    localStorage.removeItem("token")
+  }
+  render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        
+      <div className="App">
+      <Navbar username={this.state.username} signOut={this.signOut} />
+      <h1>{this.state.username ? `Welcome back, ${this.state.username}` : null}</h1>
+            <Route exact path='/sign-in' render={(props) => <SignIn {...props} signIn={this.signIn}/>} />
+            <Route exact path='/' component={Home}/>
+            <Route exact path='/portfolio' render={(props) => (
+              <>
+            <Portfolio {...props} imageCollection={this.state.imageCollection}/>
+            <ImageCollection {...props} imageCollection={this.state.imageCollection} /> </>)  }/>
+            <Route exact path='/images'  />
+            <Route exact path='/merchandise' component={Merchandise}/>
+            <Route exact path='/about' component={About}/>
+            <Route exact path='/contact' component={Contact}/>
+            {/* <ImageCollection imageCollection={this.state.imageCollection} /> */}
+      </div>
+      </Switch>
+    </Router>
   );
+  }
 }
 
 export default App;
