@@ -10,20 +10,25 @@ import Error404 from "./Error404"
 
 
 export default function Authorized ({ logOut }) {
+
+    return (
+        <Button   
+            onClick={logOut}
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+        >
+            Log out
+        </Button>
+    )
+    
     return (
         <Switch>
             <Route exact path="/">
             <Navbar />
                 <Home/>
-                <Button   
-                    onClick={logOut}
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                >
-                    Log out
-                </Button>
+                
             </Route>
             <Route path="*">
                 <Error404 />

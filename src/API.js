@@ -2,6 +2,7 @@ const baseURL = "http://localhost:3000/"
 const signInURL = `${baseURL}/sign-in`
 const validateURL = `${baseURL}/validate`
 const ImageURL = `${baseURL}/images`
+const PhotoshootURL = `${baseURL}/photoshoots`
 
 const getImages = (url, body) => {
     const configObject = {
@@ -32,13 +33,38 @@ const post = (url, body) => {
             "Content-Type": "application/json",
             "Accept": "application/json"
         }, 
-        body: JSON.stringify(body)
+        body: JSON.stringify( body)
     }   
     return fetch(url, configObject)
+}
+const createNewItem = (itemData) => {
+    return fetch(URL + "items", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: JSON.stringify({ item: itemData }),
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        console.log(res);
+    return res;
+    })
+}
+
+const getAllPhotoshoot = () => {
+    return fetch(PhotoshootURL)
+    .then(resp => resp.json())
+    .catch(error => console.log(error))
 }
 
 const signIn = (body) => post(signInURL, body).then(res => res.json())
 
 const validate = (token) => get(validateURL, token).then(res => res.json())
 
-export default { signIn, validate, getImages } 
+const postImage = (body) => post(ImageURL, body).then(res => res.json())
+
+const createNewPhotoshoot = (body) => post(PhotoshootURL, body).then(res => res.json())
+
+export default { signIn, validate, getImages, createNewItem, getAllPhotoshoot, postImage, createNewPhotoshoot } 

@@ -18,6 +18,13 @@ class Contact extends Component {
         this.setState({ [field]: value })
     }
 
+    clearForm = () => {
+        this.setState({
+            name: "", 
+            email: "", 
+            message: "",
+        })
+    }
 
     render() {
         return (

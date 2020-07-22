@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Contact, {clearForm} from './Contact'
 
 class Button extends Component {
     
@@ -22,7 +23,7 @@ class Button extends Component {
 
     logFormDataToConsole(event) {
         console.log('Form Values', this.props.formValues);
-        this.setState({ isClicked: true });
+        this.setState({ isClicked: true })
     }
 
     render() {

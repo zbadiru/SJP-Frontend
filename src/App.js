@@ -9,10 +9,11 @@ import About from './components/About'
 import Contact from './components/Contact'
 import Authorized from './components/Authorized';
 import Unauthorized from './components/Unauthorized';
-import Error404 from "./components/Error404"
+// import Error404 from "./components/Error404"
 import API from './API'
 import SignIn from './components/SignIn';
 import ImageCollection from './containers/ImageCollection'
+import Upload from './components/Upload'
 
 
 class App extends React.Component {
@@ -22,6 +23,10 @@ class App extends React.Component {
       username: null,
       imageCollection: []
     }
+  }
+
+  addImageToImageCollection = (image) => {
+    this.setState({imageCollection: [...this.state.imageCollection, image]})
   }
 
   componentDidMount(){
@@ -46,28 +51,30 @@ class App extends React.Component {
     localStorage.removeItem("token")
   }
   render(){
-  return (
-    <Router>
-      <Switch>
-        
-      <div className="App">
+  return (<>
       <Navbar username={this.state.username} signOut={this.signOut} />
-      <h1>{this.state.username ? `Welcome back, ${this.state.username}` : null}</h1>
+      <Switch> 
+        <div className="App">
+        <h1>{this.state.username ? `Welcome back, ${this.state.username}` : null}</h1>
             <Route exact path='/sign-in' render={(props) => <SignIn {...props} signIn={this.signIn}/>} />
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/portfolio' render={(props) => (
-              <>
-            <Portfolio {...props} imageCollection={this.state.imageCollection}/>
-            <ImageCollection {...props} imageCollection={this.state.imageCollection} /> </>)  }/>
+            <Route exact path='/' render={routerProps => <Home />}/>
+            <Route exact path='/portfolio' render={(props) => (<>
+              <Portfolio 
+                {...props} 
+                imageCollection={this.state.imageCollection}
+                addImageToImageCollection={this.addImageToImageCollection}
+                username={this.state.username}
+              />
+              <ImageCollection {...props} imageCollection={this.state.imageCollection} />
+            </>)}/>
             <Route exact path='/images'  />
             <Route exact path='/merchandise' component={Merchandise}/>
             <Route exact path='/about' component={About}/>
             <Route exact path='/contact' component={Contact}/>
             {/* <ImageCollection imageCollection={this.state.imageCollection} /> */}
-      </div>
+        </div>
       </Switch>
-    </Router>
-  );
+    </>);
   }
 }
 
