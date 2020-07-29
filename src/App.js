@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './components/Home'
 import Portfolio from './components/Portfolio'
-import Merchandise from './components/Merchandise'
+import Product from './components/Product'
+import ProductList from './components/ProductList'
 import About from './components/About'
 import Contact from './components/Contact'
 import Authorized from './components/Authorized';
@@ -14,68 +15,65 @@ import API from './API'
 import SignIn from './components/SignIn';
 import ImageCollection from './containers/ImageCollection'
 import Upload from './components/Upload'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {ProductConsumer} from './context'
+import Cart from './components/Cart/Cart';
 
 
-class App extends React.Component {
-  constructor(){
-    super()
-    this.state = {
-      username: null,
-      imageCollection: []
-    }
+
+
+function App() {
+      const [username, setUsername] = useState(null)
+      const [imageCollection, setImageCollection] = useState([])
+    
+  const addImageToImageCollection = (image) => {
+    setImageCollection([...imageCollection, image]) 
   }
 
-  addImageToImageCollection = (image) => {
-    this.setState({imageCollection: [...this.state.imageCollection, image]})
-  }
-
-  componentDidMount(){
+  useEffect(() => {
     if(localStorage.token){
       API.validate(localStorage.token)
-      .then(json => this.signIn(json.username, json.token))
+      .then(json => signIn(json.username, json.token))
     }
-    API.getImages().then((imageCollection) => this.setState({ imageCollection }))
-  }
+    API.getImages().then((imageCollection) => setImageCollection(imageCollection))
+  },[])
 
-  signIn = (username, token) =>{
-    this.setState({
-      username
-    })
+  const signIn = (username, token) =>{
+    setUsername(username)
     localStorage.token = token
   }
 
-  signOut = () => {
-    this.setState({
-      username: null
-    })
+  const signOut = () => {
+    setUsername(null)
     localStorage.removeItem("token")
   }
-  render(){
+  
   return (<>
-      <Navbar username={this.state.username} signOut={this.signOut} />
+      <Navbar username={username} signOut={signOut} />
       <Switch> 
         <div className="App">
-        <h1>{this.state.username ? `Welcome back, ${this.state.username}` : null}</h1>
-            <Route exact path='/sign-in' render={(props) => <SignIn {...props} signIn={this.signIn}/>} />
+        <h1>{username ? `Welcome back, ${username}` : null}</h1>
+            <Route exact path='/sign-in' render={(props) => <SignIn {...props} signIn={signIn}/>} />
             <Route exact path='/' render={routerProps => <Home />}/>
             <Route exact path='/portfolio' render={(props) => (<>
               <Portfolio 
                 {...props} 
-                imageCollection={this.state.imageCollection}
-                addImageToImageCollection={this.addImageToImageCollection}
-                username={this.state.username}
+                imageCollection={imageCollection}
+                addImageToImageCollection={addImageToImageCollection}
+                username={username}
               />
-              <ImageCollection {...props} imageCollection={this.state.imageCollection} />
+              <ImageCollection {...props} imageCollection={imageCollection} />
             </>)}/>
             <Route exact path='/images'  />
-            <Route exact path='/merchandise' component={Merchandise}/>
+            <Route exact path='/products' component={ProductList}/>
+            {/* <Route exact path='/products' component={Product}/> */}
+            <Route path='/cart' component={Cart}/>
             <Route exact path='/about' component={About}/>
             <Route exact path='/contact' component={Contact}/>
             {/* <ImageCollection imageCollection={this.state.imageCollection} /> */}
         </div>
       </Switch>
     </>);
-  }
 }
 
 export default App;

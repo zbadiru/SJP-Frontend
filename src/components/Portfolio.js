@@ -12,7 +12,7 @@ export default class Portfolio extends Component {
 
     render() {
         const images = this.props.imageCollection.map((image, index) => {
-            return <div className="ui column"><ImageCard key={index} image={image} /></div>
+            return <div className="container"><ImageCard key={index} image={image} /></div>
         })
         const toggleStateImage = () => {
             this.setState({
@@ -30,7 +30,9 @@ export default class Portfolio extends Component {
                     {
                         this.props.username &&
                         <>
-                            <button onClick={() => toggleStateImage()} >
+                            <button 
+                            style={{marginLeft: "30px"}}
+                            onClick={() => toggleStateImage()} >
                                 Add 
                             </button>
                             <button onClick={() => toggleStatePhotoShoot()} >

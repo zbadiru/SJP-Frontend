@@ -161,7 +161,9 @@ const useStyles = makeStyles((theme) => ({
                 <Grid item xs={12}>
                     {loading? (
                         <h3>Loading...</h3>
-                        ): null}
+                        ):(
+                        <img src={image_url} style={{width: '250px'}} alt=""/>
+                        )}
                 </Grid>
 
                 { image_url ? 

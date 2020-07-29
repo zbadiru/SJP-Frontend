@@ -3,6 +3,7 @@ const signInURL = `${baseURL}/sign-in`
 const validateURL = `${baseURL}/validate`
 const ImageURL = `${baseURL}/images`
 const PhotoshootURL = `${baseURL}/photoshoots`
+const ProductURL = `${baseURL}/merchandises`
 
 const getImages = (url, body) => {
     const configObject = {
@@ -58,6 +59,10 @@ const getAllPhotoshoot = () => {
     .then(resp => resp.json())
     .catch(error => console.log(error))
 }
+const getAllProduct = () => {
+    return fetch(ProductURL)
+    .then((res) => res.json())
+}
 
 const signIn = (body) => post(signInURL, body).then(res => res.json())
 
@@ -67,4 +72,6 @@ const postImage = (body) => post(ImageURL, body).then(res => res.json())
 
 const createNewPhotoshoot = (body) => post(PhotoshootURL, body).then(res => res.json())
 
-export default { signIn, validate, getImages, createNewItem, getAllPhotoshoot, postImage, createNewPhotoshoot } 
+
+
+export default { signIn, validate, getImages, createNewItem, getAllPhotoshoot, postImage, createNewPhotoshoot, getAllProduct } 

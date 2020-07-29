@@ -22,7 +22,7 @@ export default class SignIn extends Component {
         e.preventDefault()
         API.signIn(this.state)
         .then(json => this.props.signIn(json.username, json.token))
-        this.props.history.push("/home")
+        this.props.history.push("/")
     }
     
 
