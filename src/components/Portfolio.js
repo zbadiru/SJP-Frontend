@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import ImageCollection from '../containers/ImageCollection'
 import ImageCard from './ImageCard'
 import Upload from './Upload'
 import CreatePhotoshoot from './CreatePhotoshoot'
+import { Grid } from '@material-ui/core'
 
 export default class Portfolio extends Component {
     state = { 
@@ -11,9 +11,20 @@ export default class Portfolio extends Component {
     }
 
     render() {
-        const images = this.props.imageCollection.map((image, index) => {
-            return <div className="container"><ImageCard key={index} image={image} /></div>
+        // const images = this.props.imageCollection.map((image, index) => 
+        //         <ImageCard key={index} image={image} /> 
+        // )
+
+        const renderImages = () => this.props.imageCollection.map(image => {
+            return(
+                <Grid key={image.id} item xs={12} sm={6} md={4} >
+                    <ImageCard key={image.id} image={image}/>
+                </Grid>   
+            )
         })
+
+
+
         const toggleStateImage = () => {
             this.setState({
                 showForm: !this.state.showForm,
@@ -25,7 +36,7 @@ export default class Portfolio extends Component {
             })
         }
         return (
-            <div className="ui three column grid">
+            <div className="ui three column grid" style={{backgroundColor: "gray"}}>
                 <div className="row">
                     {
                         this.props.username &&
@@ -51,7 +62,16 @@ export default class Portfolio extends Component {
                     addImageToImageCollection={this.props.addImageToImageCollection}
                     /> : null}
                     {this.state.showPhotoshootForm ?  <CreatePhotoshoot/> : null}
-                    {images}
+
+                    <Grid 
+                    container spacing={1} 
+                    justify="center"
+                    // className={classes.gridContainer}>
+                    >
+                        { renderImages() }
+                    </Grid>
+
+                    {/* {images} */}
                 </div>
             </div>
         )

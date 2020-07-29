@@ -1,23 +1,25 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './components/Home'
 import Portfolio from './components/Portfolio'
-import Product from './components/Product'
+// import Product from './components/Product'
 import ProductList from './components/ProductList'
 import About from './components/About'
 import Contact from './components/Contact'
-import Authorized from './components/Authorized';
-import Unauthorized from './components/Unauthorized';
+// import Authorized from './components/Authorized';
+// import Unauthorized from './components/Unauthorized';
 // import Error404 from "./components/Error404"
 import API from './API'
 import SignIn from './components/SignIn';
 import ImageCollection from './containers/ImageCollection'
-import Upload from './components/Upload'
+// import Upload from './components/Upload'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {ProductConsumer} from './context'
+// import {ProductConsumer} from './context'
 import Cart from './components/Cart/Cart';
+import Details from './components/Details';
+import Popup from './components/Popup';
 
 
 
@@ -66,11 +68,12 @@ function App() {
             </>)}/>
             <Route exact path='/images'  />
             <Route exact path='/products' component={ProductList}/>
-            {/* <Route exact path='/products' component={Product}/> */}
+            <Route path='/details' component={Details}/>
             <Route path='/cart' component={Cart}/>
             <Route exact path='/about' component={About}/>
             <Route exact path='/contact' component={Contact}/>
             {/* <ImageCollection imageCollection={this.state.imageCollection} /> */}
+            <Popup />
         </div>
       </Switch>
     </>);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Contact, {clearForm} from './Contact'
+// import Contact, {clearForm} from './Contact'
 
 class Button extends Component {
     

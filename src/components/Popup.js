@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { ProductConsumer } from '../context'
-import { ButtonContainer} from './Button'
+import { ButtonContainer} from './Buttons'
 import { Link } from 'react-router-dom'
 
 export default class Popup extends Component {
@@ -23,7 +23,7 @@ export default class Popup extends Component {
                                 <img src={img} className="img-fluid" alt="product" />
                                 <h5>{name}</h5>
                                 <h5 className="text_muted"> price : £ {price} </h5>
-                                <Link to='/' >
+                                <Link to='/products' >
                                     <ButtonContainer onClick={() => closePopup()}>
                                         Continue Shopping
                                     </ButtonContainer>

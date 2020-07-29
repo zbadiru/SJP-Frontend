@@ -39,3 +39,33 @@ body{
   font: 1.2rem;
   color: var(--mainYellow);
 }
+.page-holder {
+  min-height: 100vh;
+}
+
+.bg-cover {
+  background-size: cover !important;
+}
+
+.social-container {
+    margin: auto;
+    padding: 25px 50px;
+}
+
+a.social {
+  margin: 0 1rem;
+  transition: transform 250ms;
+  display: inline-block;
+}
+
+a.social:hover {
+  transform: translateY(-2px;);
+}
+
+a.facebook {
+  color: #4968ad;
+}
+
+a.instagram {
+  color: #233067;
+}

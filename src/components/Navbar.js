@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import {ButtonContainer} from './Buttons';
@@ -10,7 +10,7 @@ const Navbar = (props) => {
             <div>
                 <NavWrapper className='navbar navbar-expand-sm navbar-dark  px-px-sm-5'>
                     <ul className='navbar-nav align-items-center'>
-                    <li className='nav-item ml-5'>
+                    <li className='nav-item '>
                     <Link to='/' className='nav-link'> 
                     <ButtonContainer>
                         <span>

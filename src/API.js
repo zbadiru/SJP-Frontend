@@ -6,14 +6,14 @@ const PhotoshootURL = `${baseURL}/photoshoots`
 const ProductURL = `${baseURL}/merchandises`
 
 const getImages = (url, body) => {
-    const configObject = {
-        method: "GET",
-        mode: "cors",
-        headers: {
-            'Content-Type': 'application/json',
-            "Accept": 'application/json',
-        }
-    }
+    // const configObject = {
+    //     method: "GET",
+    //     mode: "cors",
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         "Accept": 'application/json',
+    //     }
+    // }
     return fetch(ImageURL)
     .then((res) => res.json())
 }

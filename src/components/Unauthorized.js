@@ -7,17 +7,16 @@ import Error404 from "./Error404"
 
 export default function Unauthorized () {
     
-    return <div>Unauthorised</div>
     return (
         <div>
-        {/* <Switch>
+        <Switch>
             <Route exact path="/" 
                 render={routerProps => <SignIn {...routerProps} />}
             />
             <Route path="*">
                 <Error404 />
             </Route>
-        </Switch>         */}
+        </Switch>        
         </div>
     )
 }

@@ -1,12 +1,12 @@
 import React from "react";
 
 const ImageCard = props => {
-    const { view, image } = props;
+    const { image } = props;
 
 
-    const showView = () => {
-    view(image.id)
-    }
+    // const showView = () => {
+    // view(image.id)
+    // }
 
     return (
     <div className="ui column">
@@ -15,7 +15,7 @@ const ImageCard = props => {
         key={image.id}
         >
         <div className="image">
-            <img alt="sjp image!" src={image.image_url} />
+            <img alt="sjp!" src={image.image_url} style={{width: "467px", height: "700px"}}  />
         </div>
         </div>
     </div>
